@@ -1,0 +1,5 @@
+name: 'CEBAF Status Module'
+type: module
+description: 'Provides blocks and content related to operation of CEBAF'
+package: CEBAF
+core_version_requirement: ^10
