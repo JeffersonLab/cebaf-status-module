@@ -1,0 +1,5 @@
+access-status:
+  version: 1.x
+  css:
+    layout:
+      css/access-status-layout.css: {}

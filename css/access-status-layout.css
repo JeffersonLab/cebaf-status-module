@@ -1,0 +1,15 @@
+#dropshadow {
+  width:312px;
+  height:193px;
+  z-index:1;
+  background-color: transparent;
+  visibility: visible;
+}
+
+.stacked {
+  position:absolute;
+  width:322px;
+  height:193px;
+  z-index:2;
+}
+
