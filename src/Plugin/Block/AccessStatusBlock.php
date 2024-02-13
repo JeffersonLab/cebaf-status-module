@@ -19,6 +19,7 @@ class AccessStatusBlock extends BlockBase {
 
   /**
    * The base caget url
+   * @TODO store in a module config setting
    */
   const url = 'https://epicswebops.acc.jlab.org/epics2web/caget';
 
@@ -133,15 +134,24 @@ class AccessStatusBlock extends BlockBase {
     return $values;
   }
 
+  /**
+   * The url to a file in this module's accel_state_gifs subdirectory
+   */
+  protected function gifUrl($filename) {
+    global $base_url;   // https://api.drupal.org/api/drupal/core%21globals.api.php/10
+    $module_url = $base_url.'/'.\Drupal::moduleHandler()->getModule('cebaf_status')->getPath();
+    return $module_url . '/accel_state_gifs/'.$filename;
+  }
+
   protected function markup() {
     $this->chainAValues = $this->getPvsForChain('A');
     $this->chainBValues = $this->getPvsForChain('B');
     $markup = '<div class="d-flex flex-column justify-content-center align-items-center">';
     $markup .= '<div id="dropshadow">';
-    $markup .= sprintf("<img class=\"stacked\" src=%s />",PublicStream::baseUrl() . '/accel_state12_gifs/drop_shadow.gif');
+    $markup .= sprintf("<img class=\"stacked\" src=%s />",$this->gifUrl('drop_shadow.gif'));
     foreach ($this->segmentStates() as $segment => $state){
       $filename = self::gifPrefixes[$segment] . self::gifPostfixes[$state];
-      $markup .= sprintf("<img class=\"stacked\" src=%s />",PublicStream::baseUrl() . "/accel_state12_gifs/{$filename}");
+      $markup .= sprintf("<img class=\"stacked\" src=%s />",$this->gifUrl($filename));
     }
     $markup .= '</div>';
     $markup .= '</div>';
