@@ -4,3 +4,12 @@
  * @file
  * Primary module hooks for CEBAF Status Module module.
  */
+
+/**
+ * Implements hook_cron().
+ */
+function cebaf_status_cron(){
+
+  Drupal::queue('cebaf_image_retrieve')->createItem('hoo');
+
+}
