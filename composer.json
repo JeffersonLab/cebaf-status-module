@@ -1,0 +1,6 @@
+{
+    "name": "jlab/cebaf-status-module",
+    "require": {
+        "illuminate/collections": "^10.43"
+    }
+}
