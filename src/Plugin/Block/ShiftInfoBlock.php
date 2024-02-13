@@ -78,7 +78,7 @@ class ShiftInfoBlock extends \Drupal\Core\Block\BlockBase
     return [
       'table' => [
         '#type' => 'table',
-        '#attributes' => ['class' => ['table', 'table-striped']],
+        '#attributes' => ['class' => ['table', 'table-striped','table-transparent']],
         '#rows' => $this->contentRenderRows()
       ]
     ];
