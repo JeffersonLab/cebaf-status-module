@@ -3,13 +3,13 @@
 namespace Drupal\cebaf_status\Plugin\Block;
 
 use Drupal\cebaf_status\Plugin\fetcher\ContentFetcher;
-use Drupal\Core\DependencyInjection\Container;
+
 
 /**
  * Provides a 'Contact Info' Block.
  *
  * @Block(
- *   id = "shift_info",
+ *   id = "cebaf_shift_info",
  *   admin_label = @Translation("Shift Info block"),
  *   category = @Translation("CEBAF"),
  * )
