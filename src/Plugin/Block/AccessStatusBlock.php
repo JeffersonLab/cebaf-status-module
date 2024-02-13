@@ -2,6 +2,7 @@
 
 namespace Drupal\cebaf_status\Plugin\Block;
 
+use Drupal;
 use Drupal\cebaf_status\Plugin\fetcher\ContentFetcher;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\StreamWrapper\PublicStream;
@@ -139,8 +140,8 @@ class AccessStatusBlock extends BlockBase {
    */
   protected function gifUrl($filename) {
     global $base_url;   // https://api.drupal.org/api/drupal/core%21globals.api.php/10
-    $module_url = $base_url.'/'.\Drupal::moduleHandler()->getModule('cebaf_status')->getPath();
-    return $module_url . '/accel_state_gifs/'.$filename;
+    $moduleUrl = $base_url.'/'.\Drupal::moduleHandler()->getModule('cebaf_status')->getPath();
+    return $moduleUrl . '/accel_state_gifs/'.$filename;
   }
 
   protected function markup() {
