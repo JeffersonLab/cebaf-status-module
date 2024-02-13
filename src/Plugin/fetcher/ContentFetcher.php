@@ -81,7 +81,6 @@ class ContentFetcher {
     try {
       $response = $this->httpClientFactory->fromOptions(['verify' => FALSE])->send($request);
       $content = (string) $response->getBody();
-      $this->logger->info($content);
       return $content;
     }
     catch (TransferException $e) {
