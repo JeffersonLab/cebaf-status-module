@@ -6,7 +6,6 @@ use Drupal\cebaf_status\Plugin\fetcher\ContentFetcher;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Queue\QueueWorkerBase;
-use Drupal\Core\StreamWrapper\PublicStream;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -22,6 +21,11 @@ class ImageRetrieveQueueWorker extends QueueWorkerBase implements ContainerFacto
    * The minimum number of seconds to wait before refreshing a retrieved file
    */
   const fetchInterval = 600;
+
+  /**
+   * The base command line for making thumbnails
+   */
+  const cebafConvert="/usr/bin/convert -scale '240x200!'";
 
   /**
    * Logging channel.
@@ -55,6 +59,7 @@ class ImageRetrieveQueueWorker extends QueueWorkerBase implements ContainerFacto
    */
   public function processItem($data) {
     $this->getFiles();
+    $this->makeThumbs();
   }
 
   protected function needsRefresh($filename) {
@@ -104,6 +109,37 @@ class ImageRetrieveQueueWorker extends QueueWorkerBase implements ContainerFacto
       }
 
     }
+  }
+
+  /**
+   * Make thumbnails of fetched files.
+   *
+   * @return void
+   */
+  protected function makeThumbs() {
+    $files_to_thumb = array(
+      'board_images/wb1.jpg' => 'whiteboard.gif',
+      'workmap.png'   => 'workmap.gif',
+      'calendar.png'  => 'calendar.gif',
+      'shiftplan.png'  => 'shiftplan.gif',
+    );
+
+    $publicPath = \Drupal::service('file_system')->realpath('public://');
+    $opsPath = $publicPath . '/ops';
+    $savePath = "$opsPath/thumbs";
+      foreach ($files_to_thumb as $f => $t){
+        $imgfile = "$opsPath/$f";
+        $thumbfile = "$savePath/$t";
+        $cmd = static::cebafConvert." $imgfile $thumbfile";
+        system($cmd, $retval);
+        if ($retval !== 0){
+          $message = "Failed to thumbnail $imgfile to $thumbfile ";
+          $message .= "with command $cmd";
+          $this->logger->error($message);
+        }else{
+          $this->logger->info('Made thumbnail for '.$imgfile);
+        }
+      }
   }
 
   protected function data($url) {
