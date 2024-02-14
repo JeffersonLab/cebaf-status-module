@@ -58,7 +58,11 @@ class ImageRetrieveQueueWorker extends QueueWorkerBase implements ContainerFacto
   }
 
   protected function needsRefresh($filename) {
-    return file_exists($filename) && time() - filemtime($filename) > self::fetchInterval;
+    if (! file_exists($filename)){
+      return true;
+    }
+    $ageInSeconds = time() - filemtime($filename);
+    return  $ageInSeconds > self::fetchInterval;
   }
 
   /**
