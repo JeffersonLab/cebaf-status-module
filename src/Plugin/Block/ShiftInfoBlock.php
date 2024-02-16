@@ -2,6 +2,7 @@
 
 namespace Drupal\cebaf_status\Plugin\Block;
 
+use Drupal;
 use Drupal\cebaf_status\Plugin\fetcher\ContentFetcher;
 
 
@@ -16,11 +17,6 @@ use Drupal\cebaf_status\Plugin\fetcher\ContentFetcher;
  */
 class ShiftInfoBlock extends \Drupal\Core\Block\BlockBase
 {
-
-  /**
-   * The base caget url
-   */
-  const url = 'https://epicswebops.acc.jlab.org/epics2web/caget';
 
   /**
    * The pvs that hold shift information.
@@ -55,7 +51,8 @@ class ShiftInfoBlock extends \Drupal\Core\Block\BlockBase
    */
   protected function url(): string
   {
-    return self::url . '?pv=' . implode('&pv=', array_values(self::pvs));
+    $baseUrl = Drupal::config('cebaf_status.settings')->get('ca_get_url');
+    return $baseUrl . '?pv=' . implode('&pv=', array_values(self::pvs));
   }
 
   protected function data()

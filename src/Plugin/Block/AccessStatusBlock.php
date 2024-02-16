@@ -5,7 +5,6 @@ namespace Drupal\cebaf_status\Plugin\Block;
 use Drupal;
 use Drupal\cebaf_status\Plugin\fetcher\ContentFetcher;
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\StreamWrapper\PublicStream;
 
 /**
  * Provides an 'Access Status' Block.
@@ -17,12 +16,6 @@ use Drupal\Core\StreamWrapper\PublicStream;
  * )
  */
 class AccessStatusBlock extends BlockBase {
-
-  /**
-   * The base caget url
-   * @TODO store in a module config setting
-   */
-  const url = 'https://epicswebops.acc.jlab.org/epics2web/caget';
 
   /**
    * Maps the PV names to the prefixes of our gif files
@@ -90,7 +83,8 @@ class AccessStatusBlock extends BlockBase {
   }
 
   protected function getPvsForChain($chain) {
-    $url = self::url . '?pv=' . implode('&pv=', $this->pvNamesForChain($chain));
+    $baseUrl = Drupal::config('cebaf_status.settings')->get('ca_get_url');
+    $url = $baseUrl . '?pv=' . implode('&pv=', $this->pvNamesForChain($chain));
     $decoded = json_decode($this->data($url));
     return collect($decoded->data)->pluck('value', 'name')->all();
   }

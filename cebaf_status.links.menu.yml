@@ -1,0 +1,6 @@
+cebaf_status.settings:
+  title: 'CEBAF settings'
+  parent: system.admin_config_development
+  route_name: cebaf_status.settings
+  description: 'Manage CEBAF module settings'
+  weight: 10

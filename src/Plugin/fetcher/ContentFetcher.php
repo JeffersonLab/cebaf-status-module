@@ -88,10 +88,6 @@ class ContentFetcher {
         '%url' => $url,
         '%error' => $e->getMessage(),
       ]);
-      $this->messenger->addWarning(new TranslatableMarkup('The content from %url seems to be broken because of error "%error".', [
-        '%url' => $url,
-        '%error' => $e->getMessage(),
-      ]));
       return FALSE;
     }
   }
