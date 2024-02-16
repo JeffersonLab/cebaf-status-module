@@ -1,0 +1,8 @@
+cebaf_status.settings:
+  type: config_object
+  label: 'Cebaf Status Module Settings'
+  mapping:
+    ca_get_url:
+      type: uri
+      label: "Url of epics2web/caget service for fetching EPICS PV values"
+

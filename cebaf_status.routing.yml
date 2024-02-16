@@ -1,0 +1,9 @@
+cebaf_status.settings:
+  path: '/admin/config/cebaf_status/settings'
+  defaults:
+    _title: 'CEBAF settings'
+    _form: 'Drupal\cebaf_status\Form\SettingsForm'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE
