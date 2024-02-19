@@ -122,9 +122,10 @@ class ImageRetrieveQueueWorker extends QueueWorkerBase implements ContainerFacto
    */
   protected function makeThumbs() {
     $files_to_thumb = array(
-      'board_images/wb1.jpg' => 'whiteboard.gif',
+      'accboard/wb1.jpg' => 'whiteboard.gif',
       'workmap.png'   => 'workmap.gif',
       'calendar.png'  => 'calendar.gif',
+      'presenter.png'  => 'presenter.gif',
       'shiftplan.png'  => 'shiftplan.gif',
     );
 
