@@ -32,7 +32,7 @@ class BeamCurrentBlock extends BlockBase {
    * The url to the current graph
    */
   protected function imgUrl() {
-    $baseUrl =  PublicStream::basePath() . '/ops/abcd_current.png';
+    $baseUrl =  PublicStream::baseUrl() . '/ops/abcd_current.png';
     /*
      * In order to limit caching of the graph image file, we are going to
      * append a timestamp-based query parameter.
@@ -45,7 +45,9 @@ class BeamCurrentBlock extends BlockBase {
 
   protected function markup() {
     $markup = '<div class="d-flex flex-column justify-content-center align-items-center">';
-    $markup .= "<img alt=\"recent beam current graph\" src=\"{$this->imgUrl()}\" />";
+    $markup .= "<a href=\"{$this->imgUrl()}\">";
+    $markup .= "<img class=main-img alt=\"recent beam current graph\" src=\"{$this->imgUrl()}\" />";
+    $markup .= "</a>";
     $markup .= '</div>';
     return $markup;
   }
