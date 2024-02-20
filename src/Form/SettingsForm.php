@@ -4,6 +4,7 @@ namespace Drupal\cebaf_status\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StreamWrapper\PublicStream;
 
 /**
  * Configure CEBAF Status Module settings for this site.
@@ -56,17 +57,21 @@ final class SettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state): void {
-    // @todo Validate the form here.
-    // Example:
-    // @code
-    //   if ($form_state->getValue('example') === 'wrong') {
-    //     $form_state->setErrorByName(
-    //       'message',
-    //       $this->t('The value is not correct.'),
-    //     );
-    //   }
-    // @endcode
+
+    // Make sure the paths to graphics exist
+    $this->validatePublicPathVariable($form_state->getValue('abcd_current_path'), $form_state);
+    $this->validatePublicPathVariable($form_state->getValue('pss_history_path'), $form_state);
+
     parent::validateForm($form, $form_state);
+  }
+
+
+  protected function validatePublicPathVariable(string $path, FormStateInterface $form_state) {
+    $fullPath = PublicStream::basePath() . $path;
+    if (! file_exists($fullPath)){
+      $message = $this->t("The file {$fullPath} does not exist");
+      $form_state->setErrorByName($path,$message);
+    }
   }
 
   /**
