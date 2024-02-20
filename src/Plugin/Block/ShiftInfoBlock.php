@@ -51,7 +51,7 @@ class ShiftInfoBlock extends \Drupal\Core\Block\BlockBase
    */
   protected function url(): string
   {
-    $baseUrl = Drupal::config('cebaf_status.settings')->get('ca_get_url');
+    $baseUrl = Drupal::config('cebaf_status.settings')->get('caget_url');
     return $baseUrl . '?pv=' . implode('&pv=', array_values(self::pvs));
   }
 

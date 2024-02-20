@@ -1,1 +1,3 @@
-ca_get_url: 'https://epicswebops.acc.jlab.org/epics2web/caget'
+caget_url: 'https://epicswebops.acc.jlab.org/epics2web/caget'
+abcd_current_path: '/ops/abcd_current.png'
+pss_history_path: '/ops/PSS_history.png'

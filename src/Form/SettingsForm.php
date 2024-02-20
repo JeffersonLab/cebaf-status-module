@@ -28,12 +28,26 @@ final class SettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state): array {
-    $form['ca_get_url'] = [
+    $form['caget_url'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Epicsweb caget url'),
       '#description' => $this->t('URL for epics2web caget'),
       '#size' => 64,
-      '#default_value' => $this->config('cebaf_status.settings')->get('ca_get_url'),
+      '#default_value' => $this->config('cebaf_status.settings')->get('caget_url'),
+    ];
+    $form['abcd_current_path'] = [
+        '#type' => 'textfield',
+        '#title' => $this->t('Recent Beam Current Graph'),
+        '#description' => $this->t('File path relative to public:// for Recent Beam Current graphic'),
+        '#size' => 64,
+        '#default_value' => $this->config('cebaf_status.settings')->get('abcd_current_path'),
+    ];
+    $form['pss_history_path'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('PSS History Graph'),
+      '#description' => $this->t('File path relative to public:// for PSS History graphic'),
+      '#size' => 64,
+      '#default_value' => $this->config('cebaf_status.settings')->get('pss_history_path'),
     ];
     return parent::buildForm($form, $form_state);
   }
@@ -60,7 +74,7 @@ final class SettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $this->config('cebaf_status.settings')
-      ->set('ca_get_url', $form_state->getValue('ca_get_url'))
+      ->set('caget_url', $form_state->getValue('caget_url'))
       ->save();
     parent::submitForm($form, $form_state);
   }

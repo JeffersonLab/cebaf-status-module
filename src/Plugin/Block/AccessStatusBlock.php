@@ -83,7 +83,7 @@ class AccessStatusBlock extends BlockBase {
   }
 
   protected function getPvsForChain($chain) {
-    $baseUrl = Drupal::config('cebaf_status.settings')->get('ca_get_url');
+    $baseUrl = Drupal::config('cebaf_status.settings')->get('caget_url');
     $url = $baseUrl . '?pv=' . implode('&pv=', $this->pvNamesForChain($chain));
     $decoded = json_decode($this->data($url));
     return collect($decoded->data)->pluck('value', 'name')->all();

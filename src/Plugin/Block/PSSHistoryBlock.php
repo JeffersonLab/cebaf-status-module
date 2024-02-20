@@ -10,19 +10,19 @@ use Drupal\Core\StreamWrapper\PublicStream;
  * Provides a 'Recent Beam Current' Block.
  *
  * @Block(
- *   id = "cebaf_access_recent_beam_current",
- *   admin_label = @Translation("Recent Beam Current"),
+ *   id = "cebaf_access_pss_history",
+ *   admin_label = @Translation("Recent PSS History"),
  *   category = @Translation("CEBAF"),
  * )
  */
-class BeamCurrentBlock extends BlockBase {
+class PSSHistoryBlock extends BlockBase {
 
   /**
    * @inheritDoc
    */
   public function build() {
     return [
-      '#title' => 'Recent Beam Current to Halls',
+      '#title' => 'Recent PSS History',
       '#attributes' => ['class' => ['block-block-content']],
       '#markup' => $this->markup(),
       '#wrapper_attributes' => ['class' => 'container'],
@@ -33,7 +33,7 @@ class BeamCurrentBlock extends BlockBase {
    * The url to the current graph
    */
   protected function imgUrl() {
-    $baseUrl =  PublicStream::baseUrl() . Drupal::config('cebaf_status.settings')->get('abcd_current_path');
+    $baseUrl =  PublicStream::baseUrl() . Drupal::config('cebaf_status.settings')->get('pss_history_path');
     /*
      * In order to limit caching of the graph image file, we are going to
      * append a timestamp-based query parameter.
@@ -47,7 +47,7 @@ class BeamCurrentBlock extends BlockBase {
   protected function markup() {
     $markup = '<div class="d-flex flex-column justify-content-center align-items-center">';
     $markup .= "<a href=\"{$this->imgUrl()}\">";
-    $markup .= "<img class=main-img alt=\"recent beam current graph\" src=\"{$this->imgUrl()}\" />";
+    $markup .= "<img class=sidebar-img alt=\"recent pss history graph\" src=\"{$this->imgUrl()}\" />";
     $markup .= "</a>";
     $markup .= '</div>';
     return $markup;
