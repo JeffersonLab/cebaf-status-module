@@ -7,3 +7,12 @@ cebaf_status.settings:
     _permission: 'administer site configuration'
   options:
     _admin_route: TRUE
+cebaf_status.test:
+  path: '/cebaf_status/test'
+  defaults:
+    _controller: 'Drupal\cebaf_status\Controller\TestController::build'
+    _title: 'Testing URL'
+  requirements:
+    # Require that a user has the 'access content' permission in order to view
+    # this route.
+    _permission: 'access content'

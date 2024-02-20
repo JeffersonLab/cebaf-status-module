@@ -1,6 +1,8 @@
 {
     "name": "jlab/cebaf-status-module",
     "require": {
-        "illuminate/collections": "^10.43"
+        "illuminate/collections": "^10.43",
+        "mitoteam/jpgraph": "^10.4",
+        "nesbot/carbon": "^3.0"
     }
 }
