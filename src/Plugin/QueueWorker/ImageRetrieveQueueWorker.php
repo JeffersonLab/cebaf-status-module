@@ -81,8 +81,8 @@ class ImageRetrieveQueueWorker extends QueueWorkerBase implements ContainerFacto
       'abcd_current.png' => 'http://opsweb.acc.jlab.org/asis/abcd_current.php',
       'accboard/wb1.jpg' => 'http://accboard.acc.jlab.org/board_images/wb1.jpg',
       'accboard/wb2.jpg' => 'http://accboard.acc.jlab.org/board_images/wb2.jpg',
-      'lerfboard/wb1.jpg' => 'https://lerfboard.acc.jlab.org/board_images/wb1.jpg',
-      'lerfboard/wb2.jpg' => 'https://lerfboard.acc.jlab.org/board_images/wb2.jpg',
+      'lerfboard/board_images/wb1.jpg' => 'https://lerfboard.acc.jlab.org/board_images/wb1.jpg',
+      'lerfboard/board_images/wb2.jpg' => 'https://lerfboard.acc.jlab.org/board_images/wb2.jpg',
       'accboard/status_board1.html' => 'http://accboard.acc.jlab.org/board_images/status_board1.html',
       'accboard/status_board2.html' => 'http://accboard.acc.jlab.org/board_images/status_board2.html',
       'workmap.png' => 'http://accweb.acc.jlab.org/puppet-show/screenshot?url=https://ace.jlab.org/workmap/&filename=calendar.png&format=PNG&omitBackground=false&emulateMedia=screen&fullPage=true',
@@ -124,7 +124,8 @@ class ImageRetrieveQueueWorker extends QueueWorkerBase implements ContainerFacto
    */
   protected function makeThumbs() {
     $files_to_thumb = array(
-      'accboard/wb1.jpg' => 'whiteboard.gif',
+      'accboard/wb1.jpg' => 'accboard.gif',
+      'lerfboard/board_images/wb1.jpg' => 'lerfboard.gif',
       'workmap.png'   => 'workmap.gif',
       'calendar.png'  => 'calendar.gif',
       'presenter.png'  => 'presenter.gif',
