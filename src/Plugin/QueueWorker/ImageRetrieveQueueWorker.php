@@ -85,10 +85,10 @@ class ImageRetrieveQueueWorker extends QueueWorkerBase implements ContainerFacto
       'lerfboard/board_images/wb2.jpg' => 'https://lerfboard.acc.jlab.org/board_images/wb2.jpg',
       'accboard/status_board1.html' => 'http://accboard.acc.jlab.org/board_images/status_board1.html',
       'accboard/status_board2.html' => 'http://accboard.acc.jlab.org/board_images/status_board2.html',
-      'workmap.png' => 'http://accweb.acc.jlab.org/puppet-show/screenshot?url=https://ace.jlab.org/workmap/&filename=calendar.png&format=PNG&omitBackground=false&emulateMedia=screen&fullPage=true',
-      'presenter.png' => 'http://accweb.acc.jlab.org/puppet-show/screenshot?url=https://ace.jlab.org/presenter/&filename=presenter.png&format=PNG&omitBackground=false&emulateMedia=screen&fullPage=true',
-      'calendar.png' => 'http://accweb.acc.jlab.org/puppet-show/screenshot?url=https://ace.jlab.org/calendar/&filename=calendar.png&format=PNG&omitBackground=false&emulateMedia=screen&fullPage=true',
-      'shiftplan.png' => 'http://accweb.acc.jlab.org/puppet-show/screenshot?url=https://ace.jlab.org/apps/pd/&filename=shiftplan.png&omitBackground=false&emulateMedia=screen&fullPage=true',
+      'workmap.png' => 'http://nodejs9.acc.jlab.org/puppet-show/screenshot?url=https://ace.jlab.org/workmap/&filename=calendar.png&format=PNG&omitBackground=false&emulateMedia=screen&fullPage=true',
+      'presenter.png' => 'http://nodejs9.acc.jlab.org/puppet-show/screenshot?url=https://ace.jlab.org/presenter/&filename=presenter.png&format=PNG&omitBackground=false&emulateMedia=screen&fullPage=true',
+      'calendar.png' => 'http://nodejs9.acc.jlab.org/puppet-show/screenshot?url=https://ace.jlab.org/calendar/&filename=calendar.png&format=PNG&omitBackground=false&emulateMedia=screen&fullPage=true',
+      'shiftplan.png' => 'http://nodejs9.acc.jlab.org/puppet-show/screenshot?url=https://ace.jlab.org/apps/pd/&filename=shiftplan.png&omitBackground=false&emulateMedia=screen&fullPage=true',
     ];
 
     // Get the directory where we need to save the files
