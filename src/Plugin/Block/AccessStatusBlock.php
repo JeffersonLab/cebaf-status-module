@@ -46,9 +46,7 @@ class AccessStatusBlock extends BlockBase {
     "Unresolved" => 'unresolved.gif',
   ];
 
-  protected array $chainAValues = [];
-
-  protected array $chainBValues = [];
+  protected array $epicsValues = [];
 
   /**
    * @inheritDoc
@@ -74,17 +72,17 @@ class AccessStatusBlock extends BlockBase {
   /**
    * The list of PV names for either the A or B chain of the PSS system
    */
-  protected function pvNamesForChain(string $chain): array {
+  protected function pvNames(): array {
     $pvs = [];
     foreach ($this->segments() as $segment) {
-      $pvs[] = "PLC_{$segment}_{$chain}";
+      $pvs[] = "PLC_{$segment}";
     }
     return $pvs;
   }
 
-  protected function getPvsForChain($chain) {
+  protected function getPvs() {
     $baseUrl = Drupal::config('cebaf_status.settings')->get('caget_url');
-    $url = $baseUrl . '?pv=' . implode('&pv=', $this->pvNamesForChain($chain));
+    $url = $baseUrl . '?pv=' . implode('&pv=', $this->pvNames());
     $decoded = json_decode($this->data($url));
     return collect($decoded->data)->pluck('value', 'name')->all();
   }
@@ -103,16 +101,9 @@ class AccessStatusBlock extends BlockBase {
   protected function segmentStates() {
     $values = [];
     foreach ($this->segments() as $segment) {
-      $aKey = "PLC_{$segment}_A";
-      $bKey = "PLC_{$segment}_B";
-
-      // If the two chains mismatch, the segments should show unresolved
-      if ($this->chainAValues[$aKey] !== $this->chainBValues[$bKey]) {
-        $values[$segment] = 'Unresolved';
-      }
-      else {
+      $pvName = "PLC_{$segment}";
         // Since the values matched, we will just work with A chain now
-        $state = $this->chainAValues[$aKey];
+        $state = $this->epicsValues[$pvName];
         //Beam Permit shows up as "Beam Permit 1" or "Beam Permit 2" Get rid of
         //the 1 and 2 to make the state.
         if (substr($state, 0, 4) == 'Beam') {
@@ -123,7 +114,6 @@ class AccessStatusBlock extends BlockBase {
         }
         else {
           $values[$segment] = 'Unresolved';
-        }
       }
     }
     return $values;
@@ -139,8 +129,7 @@ class AccessStatusBlock extends BlockBase {
   }
 
   protected function markup() {
-    $this->chainAValues = $this->getPvsForChain('A');
-    $this->chainBValues = $this->getPvsForChain('B');
+    $this->epicsValues = $this->getPvs();
     $markup = '<div class="d-flex flex-column justify-content-center align-items-center">';
     $markup .= '<div id="dropshadow">';
     $markup .= sprintf("<img class=\"stacked\" src=%s />",$this->gifUrl('drop_shadow.gif'));
