@@ -33,18 +33,23 @@ class AccessStatusBlock extends BlockBase {
   ];
 
   /**
-   * Maps the PV values to postfixes of our gif files
+   * Maps the PV integer values to postfixes of our gif files
    */
   const gifPostfixes = [
-    "Beam Permit" => 'beam.gif',
-    "Power Permit" => 'power.gif',
-    "Controlled" => 'controlled.gif',
-    "Sweep" => 'sweep.gif',
-    "Sweep Progress" => 'sweep.gif',
-    "Sweep Complete" => 'sweep.gif',
-    "Restricted" => 'restricted.gif',
-    "Unresolved" => 'unresolved.gif',
+    0 => 'unresolved.gif',
+    1 => 'restricted.gif',
+    2 => 'sweep.gif',
+    3 => 'sweep.gif',
+    4 => 'controlled.gif',
+    5 => 'power.gif',
+    6 => 'beam.gif',
+    7 => 'beam.gif',
+    8 => 'unresolved.gif',    // An FEL-specific laser mode not used at CEBAF
+    9 => 'unresolved.gif',    // Lockdown - a PSS error state
+    10 => 'restricted.gif',
+    11 => 'controlled.gif',
   ];
+
 
   protected array $epicsValues = [];
 
@@ -82,7 +87,8 @@ class AccessStatusBlock extends BlockBase {
 
   protected function getPvs() {
     $baseUrl = Drupal::config('cebaf_status.settings')->get('caget_url');
-    $url = $baseUrl . '?pv=' . implode('&pv=', $this->pvNames());
+    $url = $baseUrl . '?n=y&pv=' . implode('&pv=', $this->pvNames());
+
     $decoded = json_decode($this->data($url));
     return collect($decoded->data)->pluck('value', 'name')->all();
   }
@@ -104,16 +110,12 @@ class AccessStatusBlock extends BlockBase {
       $pvName = "PLC_{$segment}";
         // Since the values matched, we will just work with A chain now
         $state = $this->epicsValues[$pvName];
-        //Beam Permit shows up as "Beam Permit 1" or "Beam Permit 2" Get rid of
-        //the 1 and 2 to make the state.
-        if (substr($state, 0, 4) == 'Beam') {
-          $values[$segment] = 'Beam Permit';
-        }
-        elseif (array_key_exists($state, self::gifPostfixes)) {  // limit to know valid states
+
+        if (array_key_exists($state, self::gifPostfixes)) {  // limit to know valid states
           $values[$segment] = $state;
         }
         else {
-          $values[$segment] = 'Unresolved';
+          $values[$segment] = '0';
       }
     }
     return $values;
