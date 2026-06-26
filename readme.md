@@ -1,8 +1,10 @@
 # CEBAF Status Module
-
 This module provides programmatically generated content for
 the [cebaf web server](https://cebaf.jlab.org/) along with several
 Drupal blocks for presenting the dynamic information.
+
+# New Home
+The source code for this project is now maintaned at [code.jlab.org](https://code.jlab.org/acc/ops/acs/sas/cebaf-status-module)
 
 ## Blocks
 The module provides three sidebar content blocks and one block for the main content
